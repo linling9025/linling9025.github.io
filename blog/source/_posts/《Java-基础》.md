@@ -4,12 +4,14 @@ date: 2023-08-13 22:46:11
 tags:
     - Java
     - Java 基础
+description: Java 基础
+keywords: Java,Java 基础
 ---
 
 ## 《Java 基础》文集
 
 * 集合  
-    - HashMap
+    - {% post_link HashMap %}
 
 <br>
 
