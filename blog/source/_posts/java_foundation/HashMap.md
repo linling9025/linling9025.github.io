@@ -32,7 +32,7 @@ HashMap在实现上使用了数组+链表+红黑树三种数据结构。
 
 HashMap的实现使用了一个数组，每个数组项里面有一个链表的方式来实现，因为HashMap使用key的hashCode来寻找存储位置，不同的key可能具有相同的hashCode，这时候就出现哈希冲突了，也叫做哈希碰撞，为了解决哈希冲突，有开放地址方法，以及链地址方法。HashMap的实现上选取了链地址方法，也就是将哈希值一样的entry保存在同一个数组项里面，可以把一个数组项当做一个桶，桶里面装的entry的key的hashCode是一样的。我们知道，链表上的查询复杂的为O(N)，当这个N很大的时候也就成了瓶颈，所以HashMap在链表的长度大于8的时候就会将链表转换为红黑树这种数据结构，红黑树的查询效率高达O(lgN)，也就是说，复杂度降了一个数量级，完全可以适用于实际生产环境。
 
-<img src="https://p.ipic.vip/fd3fki.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>  
+<img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/fd3fki.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>  
 
 <br>
 
@@ -172,7 +172,7 @@ static final int tableSizeFor(int cap) {
 在最开始，将『n = cap - 1』是为了防止 cap 已经是2的幂了。如果 cap 已经是2的幂， 又没有执行这个减1操作，则执行完后面的几条无符号右移操作之后，返回的 capacity 将是这个 cap 的2倍。
 
 示例：
-<img src="https://p.ipic.vip/6gds8n.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
+<img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/6gds8n.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
 
 #### 定位元素在 table 数组中的索引位置
 索引的定位分为两步：
@@ -205,7 +205,7 @@ static final int hash(Object key) {
 
 算法的思路是，key的’hash值’高16位不变，低16位与高16位异或作为key的最终’散列值’。（h >>> 16，表示无符号右移16位，高位补0，任何数跟0异或都是其本身，因此key的hash值高16位不变。）
 
-<img src="https://p.ipic.vip/lpad8y.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
+<img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/lpad8y.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
 
 > Q：为什么要这么干呢？  
 > A：这第②步的取模操作有关：『index = (size - 1) & hash』
@@ -219,7 +219,7 @@ static final int hash(Object key) {
 
 举例：假设table.length=2^4=16
 
-<img src="https://p.ipic.vip/5nst96.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
+<img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/5nst96.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
 由上图可以看到，只有hash值的低4位参与了运算。   
 
 这样做很容易产生碰撞。设计者权衡了speed, utility, and quality，将高16位与低16位异或来减少这种影响。设计者考虑到现在的hashCode分布的已经很不错了，而且当发生较大碰撞时也用树形存储降低了冲突。仅仅异或一下，既减少了系统的开销，也不会造成因为高位没有参与索引的计算(table长度比较小时)，从而引起的碰撞。
