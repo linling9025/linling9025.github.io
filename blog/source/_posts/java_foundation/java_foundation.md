@@ -1,6 +1,6 @@
 ---
 title: 《Java 基础》
-date: 2023-08-13 22:46:11
+date: 2024-02-25 18:31:18
 tags:
     - Java
     - Java 基础
@@ -11,7 +11,7 @@ keywords: Java,Java 基础
 ## 《Java 基础》文集
 
 * 集合  
-    - {% post_link HashMap %}
+    - {% post_link java_foundation/HashMap %}
 
 <br>
 
@@ -30,7 +30,6 @@ keywords: Java,Java 基础
 
 * 算法  
     - 哈希算法  
-    - 图解“红黑树”  
 
 <br>
 

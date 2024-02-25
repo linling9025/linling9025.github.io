@@ -1,6 +1,6 @@
 ---
 title: HashMap
-date: 2023-08-15 23:15:35
+date: 2024-02-25 18:35:20
 tags:
     - Java
     - Java 基础
@@ -8,7 +8,7 @@ description: HashMap,Java 基础
 keywords: HashMap,Java,Java 基础
 ---
 
-<div style="background: #f0f0f0;font-style: italic;color: #999;font-weight: bold;">更多 Java 基础文章可见 {% post_link '《Java-基础》' %} </div>
+<div style="background: #f0f0f0;font-style: italic;color: #999;font-weight: bold;">更多 Java 基础文章可见 {% post_link java_foundation/java_foundation %} </div>
 
 <!-- more -->
 
@@ -575,5 +575,4 @@ CPU 100% 实际是因为在`多线程`写操作使map容量达到阈值因此需
 
 > 解决方法：
 > 其实并没有什么所谓的解决方法，这是对HashMap的一个错误使用方式造成的问题。如果在多线程下我们应该是用 ConcurrentHashMap 而不再是使用 HashMap 了。
-
 

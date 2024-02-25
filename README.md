@@ -1,6 +1,26 @@
 
 
 
+### 安装
+
+* 版本要求
+    * node version : 16.X.X
+    * hexo version : 6.3.0
+过高的版本，hexo 还不兼容，会导致 `hexo g` [生成的静态文件都是空的](https://github.com/zalando-incubator/hexo-theme-doc/issues/149)。
+
+* package
+~~~
+npm install
+~~~
+
+* hexo 
+~~~
+npm install -g hexo@6.3.0
+~~~
+
+
+
+
 
 
 ### 在 markdown 中使用 asset_img
