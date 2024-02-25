@@ -13,17 +13,17 @@
 <meta property="og:site_name" content="Tomas家的小拨浪鼓">
 <meta property="og:description" content="HashMap,Java 基础">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://p.ipic.vip/fd3fki.png">
-<meta property="og:image" content="https://p.ipic.vip/6gds8n.png">
-<meta property="og:image" content="https://p.ipic.vip/lpad8y.png">
-<meta property="og:image" content="https://p.ipic.vip/5nst96.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/fd3fki.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/6gds8n.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/lpad8y.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/5nst96.png">
 <meta property="article:published_time" content="2024-02-25T10:35:20.000Z">
 <meta property="article:modified_time" content="2024-02-25T10:35:20.000Z">
 <meta property="article:author" content="lin.ling">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="Java 基础">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://p.ipic.vip/fd3fki.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/fd3fki.png">
     
     
       
@@ -176,7 +176,7 @@
 <h3 id="1-1-HashMap-的数据结构"><a href="#1-1-HashMap-的数据结构" class="headerlink" title="1.1 HashMap 的数据结构"></a>1.1 HashMap 的数据结构</h3><p>HashMap在实现上使用了数组+链表+红黑树三种数据结构。</p>
 <p><span style="color: green">由于寻找一个完美且通用的’哈希’函数以保证所有key的’散列值’都不一样几乎是不可能的。因此，为了解决哈希冲突，HashMap使用’拉链法’来解决碰撞。将所有’散列值’一样的 node 通过一个链表来维护。这样就使得 node 查询的时间复杂度变为了 O(N)（N为链表的长度）。而 table 数组的长度越小，产生冲突的可能性就越大，这样时间复杂度就越大；但如果为了减小这个时间复杂度，一味的增大 table 数组的大小，就会导致空间复杂度的大大增加。因此为了平衡’时间复杂度’和’空间复杂度’两个相矛盾的指标。HashMap 通过 factor 和’红黑树’来对其进行了优化。<br>首先，HashMap保证了一个合理的数组大小，以至于不会浪费太多的空间来满足时间的需求。同时，当链表的长度&gt;8时，将链表转换为’红黑树’来实现时间复杂度从 O(N) -&gt; O(logN) 的转变。</span></p>
 <p>HashMap的实现使用了一个数组，每个数组项里面有一个链表的方式来实现，因为HashMap使用key的hashCode来寻找存储位置，不同的key可能具有相同的hashCode，这时候就出现哈希冲突了，也叫做哈希碰撞，为了解决哈希冲突，有开放地址方法，以及链地址方法。HashMap的实现上选取了链地址方法，也就是将哈希值一样的entry保存在同一个数组项里面，可以把一个数组项当做一个桶，桶里面装的entry的key的hashCode是一样的。我们知道，链表上的查询复杂的为O(N)，当这个N很大的时候也就成了瓶颈，所以HashMap在链表的长度大于8的时候就会将链表转换为红黑树这种数据结构，红黑树的查询效率高达O(lgN)，也就是说，复杂度降了一个数量级，完全可以适用于实际生产环境。</p>
-<img src="https://p.ipic.vip/fd3fki.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>  
+<img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/fd3fki.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>  
 
 <br>
 
@@ -219,13 +219,13 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns a power of two size for the given target capacity.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">tableSizeFor</span><span class="params">(<span class="type">int</span> cap)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> cap - <span class="number">1</span>;</span><br><span class="line">    <span class="comment">// === 下面说的’高位’指的是，二进制为 1 的 bit。比如，n 的二进制表示中第一个为 1 的 bit，为第1高位。</span></span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">1</span>;    <span class="comment">// 将第2高位置1</span></span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">2</span>;    <span class="comment">// 将第3~4高位置1</span></span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">4</span>;    <span class="comment">// 将第5~8高位置1</span></span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">8</span>;    <span class="comment">// 将第9~16高位置1</span></span><br><span class="line">    n |= n &gt;&gt;&gt; <span class="number">16</span>;    <span class="comment">// 将第17~32高位置1</span></span><br><span class="line">    <span class="keyword">return</span> (n &lt; <span class="number">0</span>) ? <span class="number">1</span> : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>算法的思路是从 capacity 二进制的高位-&gt;低位都置为1，然后将这个全是1的二进制+1，得到 2 的 n 次方值。<br>在最开始，将『n &#x3D; cap - 1』是为了防止 cap 已经是2的幂了。如果 cap 已经是2的幂， 又没有执行这个减1操作，则执行完后面的几条无符号右移操作之后，返回的 capacity 将是这个 cap 的2倍。</p>
-<p>示例：<br><img src="https://p.ipic.vip/6gds8n.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/></p>
+<p>示例：<br><img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/6gds8n.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/></p>
 <h4 id="定位元素在-table-数组中的索引位置"><a href="#定位元素在-table-数组中的索引位置" class="headerlink" title="定位元素在 table 数组中的索引位置"></a>定位元素在 table 数组中的索引位置</h4><p>索引的定位分为两步：<br>① 计算 key 的’散列值’<br>② 对得到的’散列值’进行取模，得到索引值</p>
 <p>① 计算 key 的’散列值’  </p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Computes key.hashCode() and spreads (XORs) higher bits of hash</span></span><br><span class="line"><span class="comment"> * to lower.  Because the table uses power-of-two masking, sets of</span></span><br><span class="line"><span class="comment"> * hashes that vary only in bits above the current mask will</span></span><br><span class="line"><span class="comment"> * always collide. (Among known examples are sets of Float keys</span></span><br><span class="line"><span class="comment"> * holding consecutive whole numbers in small tables.)  So we</span></span><br><span class="line"><span class="comment"> * apply a transform that spreads the impact of higher bits</span></span><br><span class="line"><span class="comment"> * downward. There is a tradeoff between speed, utility, and</span></span><br><span class="line"><span class="comment"> * quality of bit-spreading. Because many common sets of hashes</span></span><br><span class="line"><span class="comment"> * are already reasonably distributed (so don&#x27;t benefit from</span></span><br><span class="line"><span class="comment"> * spreading), and because we use trees to handle large sets of</span></span><br><span class="line"><span class="comment"> * collisions in bins, we just XOR some shifted bits in the</span></span><br><span class="line"><span class="comment"> * cheapest possible way to reduce systematic lossage, as well as</span></span><br><span class="line"><span class="comment"> * to incorporate impact of the highest bits that would otherwise</span></span><br><span class="line"><span class="comment"> * never be used in index calculations because of table bounds.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">hash</span><span class="params">(Object key)</span> &#123;</span><br><span class="line">    <span class="type">int</span> h;</span><br><span class="line">    <span class="keyword">return</span> (key == <span class="literal">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>算法的思路是，key的’hash值’高16位不变，低16位与高16位异或作为key的最终’散列值’。（h &gt;&gt;&gt; 16，表示无符号右移16位，高位补0，任何数跟0异或都是其本身，因此key的hash值高16位不变。）</p>
-<img src="https://p.ipic.vip/lpad8y.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
+<img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/lpad8y.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
 
 <blockquote>
 <p>Q：为什么要这么干呢？<br>A：这第②步的取模操作有关：『index &#x3D; (size - 1) &amp; hash』</p>
@@ -234,7 +234,7 @@
 
 <p>② 取模操作<br>此处的取模操作，并非’传统’的’%’操作：『index &#x3D; hash % size』；<br>因为 HashMap 的容量总是 2 的 n 次方。因此，HashMap使用『index &#x3D; (size - 1) &amp; hash』方式来实现取模操作（’size-1’的二进制的每一个bit都为1。并且’&amp;’的操作效率要远高于’%’操作）。<br>但是，这也导致了一个问题，当 size 不是非常大的情况下，只有’散列值’的低位会参与到’取模’的计算中。因为，size 不够大的话，size二进制的高位全为 0 了。</p>
 <p>举例：假设table.length&#x3D;2^4&#x3D;16</p>
-<img src="https://p.ipic.vip/5nst96.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
+<img src="https://cdn.jsdelivr.net/gh/linling9025/image-hosting/imgs/5nst96.png" style="display: block;margin-left: auto;margin-right: auto;width: 70%;"/>
 由上图可以看到，只有hash值的低4位参与了运算。   
 
 <p>这样做很容易产生碰撞。设计者权衡了speed, utility, and quality，将高16位与低16位异或来减少这种影响。设计者考虑到现在的hashCode分布的已经很不错了，而且当发生较大碰撞时也用树形存储降低了冲突。仅仅异或一下，既减少了系统的开销，也不会造成因为高位没有参与索引的计算(table长度比较小时)，从而引起的碰撞。</p>
